@@ -1,9 +1,9 @@
 from .base_page import BasePage
-from .locators import ProductPageLocators
+from .locators import ProductPageLocators, MainPageLocators
 
 
 class ProductPage(BasePage):
-    
+
     def add_to_basket(self):
         bnt_add_basket = self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET)
         bnt_add_basket.click()
@@ -29,3 +29,7 @@ class ProductPage(BasePage):
         basket_price = alert.text
         
         assert product_price == basket_price, f'Price product {product_price} != Basket price {basket_price}'
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
